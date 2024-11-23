@@ -15,7 +15,7 @@ public class CriarReservaUsecase {
     private final ReservaGateway reservaGateway;
     private final RestauranteGateway restauranteGateway;
 
-    public Long criar(Reserva reserva) {
+    public Reserva criar(Reserva reserva) {
         Long capacidadeTotal = restauranteGateway.quantidadeDeLugares(reserva.getRestauranteId(), reserva.getInicioReserva());
 
         if (capacidadeTotal == null) {

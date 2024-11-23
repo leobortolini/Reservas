@@ -54,8 +54,13 @@ class ReservasControllerTest {
                 "Cliente Teste",
                 LocalDateTime.parse("2024-12-01T18:00:00")
         );
+        Reserva reserva = new Reserva();
+        reserva.setReservaId(1L);
+        reserva.setStatus(Reserva.Status.PENDENTE);
+        reserva.setInicioReserva(LocalDateTime.parse("2024-12-01T18:00:00"));
+        reserva.setNomeCliente("Cliente Teste");
 
-        when(criarReservaUsecase.criar(any())).thenReturn(1L);
+        when(criarReservaUsecase.criar(any())).thenReturn(reserva);
 
         // Act & Assert
         mockMvc.perform(post("/api/v1/reservas")
@@ -75,8 +80,14 @@ class ReservasControllerTest {
                 Avaliacao.Satisfacao.PERFEITO,
                 "Comentario Teste"
         );
+        Avaliacao avaliacao = new Avaliacao();
 
-        when(criarAvaliacaoUsecase.criar(any())).thenReturn(1L);
+        avaliacao.setAvaliacaoId(1L);
+        avaliacao.setReserva(new Reserva());
+        avaliacao.setComentario("Comentario Teste");
+        avaliacao.setSatisfacao(Avaliacao.Satisfacao.PERFEITO);
+
+        when(criarAvaliacaoUsecase.criar(any())).thenReturn(avaliacao);
 
         // Act & Assert
         mockMvc.perform(post("/api/v1/reservas/avaliar")
@@ -84,7 +95,6 @@ class ReservasControllerTest {
                         .content(objectMapper.writeValueAsString(criarAvaliacaoJson)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value(1));
-
         verify(criarAvaliacaoUsecase, times(1)).criar(any());
     }
 

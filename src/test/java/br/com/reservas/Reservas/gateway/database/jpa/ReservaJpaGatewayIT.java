@@ -27,9 +27,9 @@ class ReservaJpaGatewayIT {
     void deveCriarReserva() {
         Reserva reserva = new Reserva(null, 1L, 4, "Cliente", LocalDateTime.now().plusDays(1), Reserva.Status.PENDENTE);
 
-        Long idCriado = reservaJpaGateway.criar(reserva);
+        reserva = reservaJpaGateway.criar(reserva);
 
-        assertNotNull(idCriado);
+        assertNotNull(reserva.getReservaId());
     }
 
     @Test

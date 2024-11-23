@@ -19,7 +19,7 @@ public class CriarAvaliacaoUsecase {
     private static final List<Reserva.Status> statusPermitidosParaAvaliar = Arrays.asList(INICIADA, COMPLETADA);
     private final AvaliacaoGateway avaliacaoGateway;
 
-    public Long criar(Avaliacao avaliacao) {
+    public Avaliacao criar(Avaliacao avaliacao) {
         if (!statusPermitidosParaAvaliar.contains(avaliacao.getReserva().getStatus())) {
             throw new AvaliacaoNaoPermitidaException();
         }

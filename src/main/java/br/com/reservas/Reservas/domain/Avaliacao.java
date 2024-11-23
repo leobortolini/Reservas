@@ -2,9 +2,13 @@ package br.com.reservas.Reservas.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
+@Setter
 public class Avaliacao {
     private Long avaliacaoId;
     private Reserva reserva;

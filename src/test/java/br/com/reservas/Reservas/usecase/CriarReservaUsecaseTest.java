@@ -39,13 +39,15 @@ class CriarReservaUsecaseTest {
         Reserva reserva = new Reserva(null, 1L, 4, "Cliente Teste", LocalDateTime.now(), null);
         when(restauranteGateway.quantidadeDeLugares(anyLong(), any())).thenReturn(10L);
         when(reservaGateway.contarReservas(anyLong(), any())).thenReturn(2L);
-        when(reservaGateway.criar(any(Reserva.class))).thenReturn(1L);
+        Reserva reservaComId = new Reserva();
+        reservaComId.setReservaId(1L);
+        when(reservaGateway.criar(any(Reserva.class))).thenReturn(reservaComId);
 
         // Act
-        Long idReserva = criarReservaUsecase.criar(reserva);
+        Reserva novaReserva = criarReservaUsecase.criar(reserva);
 
         // Assert
-        assertEquals(1L, idReserva);
+        assertEquals(1L, novaReserva.getReservaId());
         verify(restauranteGateway, times(1)).quantidadeDeLugares(1L, reserva.getInicioReserva());
         verify(reservaGateway, times(1)).contarReservas(1L, reserva.getInicioReserva());
         verify(reservaGateway, times(1)).criar(reserva);
@@ -57,13 +59,15 @@ class CriarReservaUsecaseTest {
         Reserva reserva = new Reserva(null, 1L, 4, "Cliente Teste", LocalDateTime.now(), null);
         when(restauranteGateway.quantidadeDeLugares(anyLong(), any())).thenReturn(10L);
         when(reservaGateway.contarReservas(anyLong(), any())).thenReturn(null);
-        when(reservaGateway.criar(any(Reserva.class))).thenReturn(1L);
+        Reserva reservaComId = new Reserva();
+        reservaComId.setReservaId(1L);
+        when(reservaGateway.criar(any(Reserva.class))).thenReturn(reservaComId);
 
         // Act
-        Long idReserva = criarReservaUsecase.criar(reserva);
+        Reserva novaReserva = criarReservaUsecase.criar(reserva);
 
         // Assert
-        assertEquals(1L, idReserva);
+        assertEquals(1L, novaReserva.getReservaId());
         verify(restauranteGateway, times(1)).quantidadeDeLugares(1L, reserva.getInicioReserva());
         verify(reservaGateway, times(1)).contarReservas(1L, reserva.getInicioReserva());
         verify(reservaGateway, times(1)).criar(reserva);
@@ -101,7 +105,9 @@ class CriarReservaUsecaseTest {
         Reserva reserva = new Reserva(null, 1L, 4, "Cliente Teste", LocalDateTime.now(), null);
         when(restauranteGateway.quantidadeDeLugares(anyLong(), any())).thenReturn(10L);
         when(reservaGateway.contarReservas(anyLong(), any())).thenReturn(2L);
-        when(reservaGateway.criar(any(Reserva.class))).thenReturn(1L);
+        Reserva reservaComId = new Reserva();
+        reservaComId.setReservaId(1L);
+        when(reservaGateway.criar(any(Reserva.class))).thenReturn(reservaComId);
 
         // Act
         criarReservaUsecase.criar(reserva);

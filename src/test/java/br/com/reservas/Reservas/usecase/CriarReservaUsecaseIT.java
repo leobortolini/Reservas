@@ -46,11 +46,11 @@ class CriarReservaUsecaseIT {
         when(restauranteGateway.quantidadeDeLugares(restauranteId, inicioReserva)).thenReturn(20L);
 
         // Act
-        Long reservaId = criarReservaUsecase.criar(reserva);
+        Reserva reservaId = criarReservaUsecase.criar(reserva);
 
         // Assert
         assertNotNull(reservaId);
-        assertTrue(reservaId > 0);
+        assertTrue(reserva.getReservaId() > 0);
 
         verify(restauranteGateway, times(1)).quantidadeDeLugares(restauranteId, inicioReserva);
     }

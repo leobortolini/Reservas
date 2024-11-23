@@ -31,11 +31,14 @@ public class ReservaJpaGateway implements ReservaGateway {
     }
 
     @Override
-    public Long criar(Reserva reserva) {
+    public Reserva criar(Reserva reserva) {
         try {
             ReservaEntity reservaEntity = ReservaEntity.toEntity(reserva);
 
-            return reservaRepository.save(reservaEntity).getId();
+            reservaEntity = reservaRepository.save(reservaEntity);
+            reserva.setReservaId(reservaEntity.getId());
+
+            return reserva;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             throw new ErroAoAcessarRepositorioException();

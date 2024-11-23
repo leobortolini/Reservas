@@ -32,15 +32,16 @@ class CriarAvaliacaoUsecaseTest {
         Reserva reserva = new Reserva();
         reserva.setStatus(Reserva.Status.COMPLETADA);
         Avaliacao avaliacao = new Avaliacao(null, reserva, "Ótimo atendimento", Avaliacao.Satisfacao.PERFEITO);
-
-        when(avaliacaoGateway.criar(avaliacao)).thenReturn(1L);
+        Avaliacao avaliacaoComId = new Avaliacao();
+        avaliacaoComId.setAvaliacaoId(1L);
+        when(avaliacaoGateway.criar(avaliacao)).thenReturn(avaliacaoComId);
 
         // Act
-        Long idAvaliacao = criarAvaliacaoUsecase.criar(avaliacao);
+        Avaliacao novaAvaliacao = criarAvaliacaoUsecase.criar(avaliacao);
 
         // Assert
-        assertNotNull(idAvaliacao);
-        assertEquals(1L, idAvaliacao);
+        assertNotNull(novaAvaliacao);
+        assertEquals(1L, novaAvaliacao.getAvaliacaoId());
         verify(avaliacaoGateway, times(1)).criar(avaliacao);
     }
 

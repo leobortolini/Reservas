@@ -58,11 +58,11 @@ class AvaliacaoJpaGatewayTest {
         when(avaliacaoRepository.save(any(AvaliacaoEntity.class))).thenReturn(avaliacaoEntity);
 
         // Act
-        Long avaliacaoId = avaliacaoJpaGateway.criar(avaliacao);
+        Avaliacao avaliacaoComId = avaliacaoJpaGateway.criar(avaliacao);
 
         // Assert
-        assertNotNull(avaliacaoId);
-        assertEquals(avaliacaoEntity.getId(), avaliacaoId);
+        assertNotNull(avaliacaoComId);
+        assertEquals(avaliacaoEntity.getId(), avaliacaoComId.getAvaliacaoId());
         verify(reservaRepository, times(1)).findById(avaliacao.getReserva().getReservaId());
         verify(avaliacaoRepository, times(1)).save(any(AvaliacaoEntity.class));
     }

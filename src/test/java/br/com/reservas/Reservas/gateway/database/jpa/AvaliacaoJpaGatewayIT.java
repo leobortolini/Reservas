@@ -30,10 +30,10 @@ public class AvaliacaoJpaGatewayIT {
         Avaliacao avaliacao =  new Avaliacao(null, reserva, "Comentario", Avaliacao.Satisfacao.PERFEITO);
 
         // Act
-        Long id = avaliacaoJpaGateway.criar(avaliacao);
+        avaliacao = avaliacaoJpaGateway.criar(avaliacao);
 
         // Assert
-        assertNotNull(id);
+        assertNotNull(avaliacao.getAvaliacaoId());
     }
 
     @Test

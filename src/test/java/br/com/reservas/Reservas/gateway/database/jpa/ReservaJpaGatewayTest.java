@@ -60,10 +60,10 @@ class ReservaJpaGatewayTest {
         when(reservaRepository.save(any(ReservaEntity.class))).thenReturn(reservaEntity);
 
         // Act
-        Long reservaId = reservaJpaGateway.criar(reserva);
+        reserva = reservaJpaGateway.criar(reserva);
 
         // Assert
-        assertEquals(1L, reservaId);
+        assertEquals(1L, reserva.getReservaId());
         verify(reservaRepository, times(1)).save(any(ReservaEntity.class));
     }
 

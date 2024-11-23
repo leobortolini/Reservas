@@ -9,7 +9,7 @@ import java.util.List;
 public interface ReservaGateway {
 
     Long contarReservas(Long restauranteId, LocalDateTime data);
-    Long criar(Reserva reserva);
+    Reserva criar(Reserva reserva);
     ReservaDTO atualizarReserva(Reserva reserva);
     List<ReservaDTO> listarReservas(Long restauranteId, LocalDateTime data);
     ReservaDTO listarReserva(Long reservaId);

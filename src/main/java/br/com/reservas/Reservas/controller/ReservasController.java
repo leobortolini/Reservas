@@ -28,16 +28,18 @@ public class ReservasController {
 
     @PostMapping
     public ResponseEntity<CriarReservaResponseJson> criarReserva(@Valid @RequestBody CriarReservaJson reservaJson) {
-        Long idReserva = criarReservaUsecase.criar(mapToDomain(reservaJson));
+        Reserva reserva = criarReservaUsecase.criar(mapToDomain(reservaJson));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new CriarReservaResponseJson(idReserva));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new CriarReservaResponseJson(reserva.getReservaId(), reserva.getRestauranteId(),
+                reserva.getQuantidadeLugares(), reserva.getNomeCliente(), reserva.getInicioReserva(), reserva.getStatus().name()));
     }
 
     @PostMapping("/avaliar")
     public ResponseEntity<CriarAvaliacaoResponseJson> avaliarReserva(@Valid @RequestBody CriarAvaliacaoJson criarAvaliacaoJson) {
-        Long idAvaliacao = criarAvaliacaoUsecase.criar(mapToDomain(criarAvaliacaoJson));
+        Avaliacao avaliacao = criarAvaliacaoUsecase.criar(mapToDomain(criarAvaliacaoJson));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new CriarAvaliacaoResponseJson(idAvaliacao));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new CriarAvaliacaoResponseJson(avaliacao.getAvaliacaoId(), avaliacao.getReserva(),
+                avaliacao.getComentario(), avaliacao.getSatisfacao().name()));
     }
 
     @GetMapping

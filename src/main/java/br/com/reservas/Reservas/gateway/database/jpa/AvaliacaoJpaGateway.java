@@ -20,10 +20,13 @@ public class AvaliacaoJpaGateway implements AvaliacaoGateway {
     private final ReservaRepository reservaRepository;
 
     @Override
-    public Long criar(Avaliacao avaliacao) {
+    public Avaliacao criar(Avaliacao avaliacao) {
         AvaliacaoEntity avaliacaoEntity = toEntity(avaliacao);
 
-        return avaliacaoRepository.save(avaliacaoEntity).getId();
+        avaliacaoEntity = avaliacaoRepository.save(avaliacaoEntity);
+        avaliacao.setAvaliacaoId(avaliacaoEntity.getId());
+
+        return avaliacao;
     }
 
     private AvaliacaoEntity toEntity(Avaliacao avaliacao) {

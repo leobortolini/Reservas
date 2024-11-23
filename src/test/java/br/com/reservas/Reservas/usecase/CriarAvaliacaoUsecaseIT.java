@@ -28,10 +28,10 @@ class CriarAvaliacaoUsecaseIT {
         Avaliacao avaliacao = new Avaliacao(null, reserva, "Comentario", Avaliacao.Satisfacao.PERFEITO);
 
         // Act
-        Long avaliacaoId = listarReservasUsecase.criar(avaliacao);
+        avaliacao = listarReservasUsecase.criar(avaliacao);
 
         // Assert
-        assertNotNull(avaliacaoId);
+        assertNotNull(avaliacao.getAvaliacaoId());
     }
 
     @Test
