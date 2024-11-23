@@ -2,7 +2,6 @@ package br.com.reservas.Reservas.controller;
 
 import br.com.reservas.Reservas.controller.json.*;
 import br.com.reservas.Reservas.domain.Avaliacao;
-import br.com.reservas.Reservas.gateway.rest.RestauranteGatewayHttpImpl;
 import br.com.reservas.Reservas.gateway.rest.json.QuantidadeDeLugaresResponseJson;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
@@ -10,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -30,16 +28,13 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureTestDatabase
-public class ReservasControllerIT {
+class ReservasControllerIT {
 
     @LocalServerPort
     private int port;
 
-    @Autowired
-    private RestauranteGatewayHttpImpl restauranteGatewayHttpImpl;
     @MockBean
     private RestTemplate restTemplate;
-
 
     @BeforeEach
     public void setup() {
@@ -75,7 +70,7 @@ public class ReservasControllerIT {
         }
 
         @Test
-        @Sql(scripts = {"/clean.sql", "/reservas.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+        @Sql(scripts = {"/clean.sql", "/reservas.sql"})
         void listarReservas_DeveRetornarStatusOkComDados() {
             ListarReservasResponseJson extractableResponse = given()
                     .filter(new AllureRestAssured())
@@ -93,7 +88,7 @@ public class ReservasControllerIT {
         }
 
         @Test
-        @Sql(scripts = {"/clean.sql", "/reservas.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+        @Sql(scripts = {"/clean.sql", "/reservas.sql"})
         void atualizarReserva_DeveRetornarReservaAtualizada() {
             AtualizarReservaJson atualizarReservaJson = new AtualizarReservaJson(1L,
                     1L, 10,
@@ -115,7 +110,7 @@ public class ReservasControllerIT {
         }
 
         @Test
-        @Sql(scripts = {"/clean.sql", "/reservas.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+        @Sql(scripts = {"/clean.sql", "/reservas.sql"})
         void avaliarReserva_DeveRetornarIdDaAvaliacao() {
             CriarAvaliacaoJson criarAvaliacaoJson = new CriarAvaliacaoJson(
                     2L,

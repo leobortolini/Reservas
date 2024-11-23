@@ -2,6 +2,7 @@ package br.com.reservas.Reservas.gateway.database.jpa;
 
 import br.com.reservas.Reservas.domain.Reserva;
 import br.com.reservas.Reservas.exception.ErroAoAcessarRepositorioException;
+import br.com.reservas.Reservas.exception.ReservaNaoEncontradaException;
 import br.com.reservas.Reservas.gateway.ReservaGateway;
 import br.com.reservas.Reservas.gateway.database.jpa.entity.ReservaEntity;
 import br.com.reservas.Reservas.gateway.database.jpa.repository.ReservaRepository;
@@ -43,6 +44,9 @@ public class ReservaJpaGateway implements ReservaGateway {
 
     @Override
     public ReservaDTO atualizarReserva(Reserva reserva) {
+        if (reservaRepository.findById(reserva.getReservaId()).isEmpty()) {
+            throw new ReservaNaoEncontradaException();
+        }
         ReservaEntity entity = ReservaEntity.toEntity(reserva);
         entity.setId(reserva.getReservaId());
         entity = reservaRepository.save(entity);

@@ -87,6 +87,7 @@ class ReservaJpaGatewayTest {
         reservaEntity.setId(1L);
 
         when(reservaRepository.save(any(ReservaEntity.class))).thenReturn(reservaEntity);
+        when(reservaRepository.findById(any(Long.class))).thenReturn(Optional.of(mock(ReservaEntity.class)));
 
         // Act
         ReservaDTO reservaDTO = reservaJpaGateway.atualizarReserva(reserva);

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -24,6 +25,9 @@ class RestauranteGatewayHttpImplTest {
     @Mock
     private RestTemplate restTemplate;
 
+    @Value("${restaurante.gateway.url}")
+    private String restauranteGatewayUrl;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -37,7 +41,8 @@ class RestauranteGatewayHttpImplTest {
         Long quantidadeEsperada = 50L;
 
         String urlEsperada = String.format(
-                "https://ff36ceeb-8f69-481c-a753-20b9dac467db.mock.pstmn.io/api/v1/disponibilidade?restauranteId=%s&dataReserva=%s",
+                "%s/api/v1/disponibilidade?restauranteId=%s&dataReserva=%s",
+                restauranteGatewayUrl,
                 restauranteId,
                 dataReserva
         );
@@ -63,7 +68,8 @@ class RestauranteGatewayHttpImplTest {
         LocalDateTime dataReserva = LocalDateTime.now();
 
         String urlEsperada = String.format(
-                "https://ff36ceeb-8f69-481c-a753-20b9dac467db.mock.pstmn.io/api/v1/disponibilidade?restauranteId=%s&dataReserva=%s",
+                "%s/api/v1/disponibilidade?restauranteId=%s&dataReserva=%s",
+                restauranteGatewayUrl,
                 restauranteId,
                 dataReserva
         );
@@ -84,7 +90,8 @@ class RestauranteGatewayHttpImplTest {
         LocalDateTime dataReserva = LocalDateTime.now();
 
         String urlEsperada = String.format(
-                "https://ff36ceeb-8f69-481c-a753-20b9dac467db.mock.pstmn.io/api/v1/disponibilidade?restauranteId=%s&dataReserva=%s",
+                "%s/api/v1/disponibilidade?restauranteId=%s&dataReserva=%s",
+                restauranteGatewayUrl,
                 restauranteId,
                 dataReserva
         );
