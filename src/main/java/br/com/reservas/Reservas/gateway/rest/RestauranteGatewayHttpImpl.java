@@ -25,7 +25,7 @@ public class RestauranteGatewayHttpImpl implements RestauranteGateway {
     @Override
     public Long quantidadeDeLugares(Long restauranteId, LocalDateTime dataReserva) {
         try {
-            String url = String.format(gatewayURL + "/api/v1/disponibilidade?restauranteId=%s&dataReserva=%s", restauranteId, dataReserva.toString());
+            String url = String.format(gatewayURL + "/api/v1/restaurantes/disponibilidade?restauranteId=%s&dataReserva=%s", restauranteId, dataReserva.toString());
 
             ResponseEntity<QuantidadeDeLugaresResponseJson> response = restTemplate.getForEntity(url, QuantidadeDeLugaresResponseJson.class);
             if (response.getBody() == null || response.getBody().quantidaDePessoas() == null || response.getBody().quantidaDePessoas() == null) throw new ErroAoConsultarRestauranteException();

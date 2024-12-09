@@ -41,7 +41,7 @@ class RestauranteGatewayHttpImplTest {
         Long quantidadeEsperada = 50L;
 
         String urlEsperada = String.format(
-                "%s/api/v1/disponibilidade?restauranteId=%s&dataReserva=%s",
+                "%s/api/v1/restaurantes/disponibilidade?restauranteId=%s&dataReserva=%s",
                 restauranteGatewayUrl,
                 restauranteId,
                 dataReserva
@@ -68,7 +68,7 @@ class RestauranteGatewayHttpImplTest {
         LocalDateTime dataReserva = LocalDateTime.now();
 
         String urlEsperada = String.format(
-                "%s/api/v1/disponibilidade?restauranteId=%s&dataReserva=%s",
+                "%s/api/v1/restaurantes/disponibilidade?restauranteId=%s&dataReserva=%s",
                 restauranteGatewayUrl,
                 restauranteId,
                 dataReserva
@@ -90,7 +90,7 @@ class RestauranteGatewayHttpImplTest {
         LocalDateTime dataReserva = LocalDateTime.now();
 
         String urlEsperada = String.format(
-                "%s/api/v1/disponibilidade?restauranteId=%s&dataReserva=%s",
+                "%s/api/v1/restaurantes/disponibilidade?restauranteId=%s&dataReserva=%s",
                 restauranteGatewayUrl,
                 restauranteId,
                 dataReserva

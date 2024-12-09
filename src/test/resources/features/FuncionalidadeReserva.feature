@@ -1,5 +1,5 @@
 # language: pt
-Funcionalidade: API - Mensagens
+Funcionalidade: API - Reservas
 
     Cenário: Criar nova reserva
         Quando criar nova reserva

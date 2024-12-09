@@ -26,7 +26,7 @@ class RestauranteGatewayHttpImplIT{
         // Arrange
         Long restauranteId = 1L;
         LocalDateTime dataReserva = LocalDateTime.of(2024, 11, 24, 12, 0);
-        String url = String.format("/api/v1/disponibilidade?restauranteId=%s&dataReserva=%s", restauranteId, dataReserva);
+        String url = String.format("/api/v1/restaurantes/disponibilidade?restauranteId=%s&dataReserva=%s", restauranteId, dataReserva);
 
         stubFor(get(urlEqualTo(url))
                 .willReturn(okJson("{\n" +
@@ -49,7 +49,7 @@ class RestauranteGatewayHttpImplIT{
         // Arrange
         Long restauranteId = 2L;
         LocalDateTime dataReserva = LocalDateTime.of(2024, 11, 24, 12, 0);
-        String url = String.format("/api/v1/disponibilidade?restauranteId=%s&dataReserva=%s", restauranteId, dataReserva);
+        String url = String.format("/api/v1/restaurantes/disponibilidade?restauranteId=%s&dataReserva=%s", restauranteId, dataReserva);
 
         stubFor(get(urlEqualTo(url))
                 .willReturn(okJson("{}"))); // Simula retorno sem o campo esperado
@@ -66,7 +66,7 @@ class RestauranteGatewayHttpImplIT{
         // Arrange
         Long restauranteId = 3L;
         LocalDateTime dataReserva = LocalDateTime.of(2024, 11, 24, 12, 0);
-        String url = String.format("/api/v1/disponibilidade?restauranteId=%s&dataReserva=%s", restauranteId, dataReserva);
+        String url = String.format("/api/v1/restaurantes/disponibilidade?restauranteId=%s&dataReserva=%s", restauranteId, dataReserva);
 
         stubFor(get(urlEqualTo(url))
                 .willReturn(serverError())); // Simula erro no serviço externo
