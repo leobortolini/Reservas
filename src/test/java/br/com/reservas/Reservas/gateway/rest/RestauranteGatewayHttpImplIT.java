@@ -25,14 +25,10 @@ class RestauranteGatewayHttpImplIT{
     void deveRetornarQuantidadeDeLugares() {
         // Arrange
         Long restauranteId = 1L;
-        LocalDateTime dataReserva = LocalDateTime.of(2024, 11, 24, 12, 0);
+        LocalDateTime dataReserva = LocalDateTime.now();
         String url = String.format("/api/v1/restaurantes/disponibilidade?restauranteId=%s&dataReserva=%s", restauranteId, dataReserva);
 
-        stubFor(get(urlEqualTo(url))
-                .willReturn(okJson("{\n" +
-                        "    \"restauranteId\": 1,\n" +
-                        "    \"quantidaDePessoas\": 50\n" +
-                        "}")));
+        stubFor(get(urlEqualTo(url)).willReturn(ok("50").withHeader("Content-Type", "application/json")));
 
         // Act
         Long quantidadeLugares = restauranteGateway.quantidadeDeLugares(restauranteId, dataReserva);
@@ -52,7 +48,7 @@ class RestauranteGatewayHttpImplIT{
         String url = String.format("/api/v1/restaurantes/disponibilidade?restauranteId=%s&dataReserva=%s", restauranteId, dataReserva);
 
         stubFor(get(urlEqualTo(url))
-                .willReturn(okJson("{}"))); // Simula retorno sem o campo esperado
+                .willReturn(okJson(""))); // Simula retorno sem o campo esperado
 
         // Act & Assert
         assertThrows(ErroAoConsultarRestauranteException.class,

@@ -2,7 +2,6 @@ package br.com.reservas.Reservas.controller;
 
 import br.com.reservas.Reservas.controller.json.*;
 import br.com.reservas.Reservas.domain.Avaliacao;
-import br.com.reservas.Reservas.gateway.rest.json.QuantidadeDeLugaresResponseJson;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,10 +40,8 @@ class ReservasControllerIT {
         RestAssured.port = port;
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 
-        QuantidadeDeLugaresResponseJson responseJson = new QuantidadeDeLugaresResponseJson(1L, 1000L);
-
-        when(restTemplate.getForEntity(Mockito.anyString(), Mockito.eq(QuantidadeDeLugaresResponseJson.class)))
-                .thenReturn(new ResponseEntity<>(responseJson, HttpStatus.OK));
+        when(restTemplate.getForEntity(Mockito.anyString(), Mockito.eq(Integer.class)))
+                .thenReturn(new ResponseEntity<>(1000, HttpStatus.OK));
     }
 
     @Nested

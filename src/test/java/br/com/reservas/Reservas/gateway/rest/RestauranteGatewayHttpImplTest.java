@@ -1,18 +1,17 @@
 package br.com.reservas.Reservas.gateway.rest;
 
 import br.com.reservas.Reservas.exception.ErroAoConsultarRestauranteException;
-import br.com.reservas.Reservas.gateway.rest.json.QuantidadeDeLugaresResponseJson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -47,10 +46,7 @@ class RestauranteGatewayHttpImplTest {
                 dataReserva
         );
 
-        QuantidadeDeLugaresResponseJson responseJson = new QuantidadeDeLugaresResponseJson(restauranteId, quantidadeEsperada);
-        ResponseEntity<QuantidadeDeLugaresResponseJson> responseEntity = new ResponseEntity<>(responseJson, HttpStatus.OK);
-
-        when(restTemplate.getForEntity(urlEsperada, QuantidadeDeLugaresResponseJson.class)).thenReturn(responseEntity);
+        when(restTemplate.getForEntity(urlEsperada, Integer.class)).thenReturn(ResponseEntity.of(Optional.of(50)));
 
         // Act
         Long quantidadeDeLugares = restauranteGatewayHttp.quantidadeDeLugares(restauranteId, dataReserva);
@@ -58,7 +54,7 @@ class RestauranteGatewayHttpImplTest {
         // Assert
         assertNotNull(quantidadeDeLugares);
         assertEquals(quantidadeEsperada, quantidadeDeLugares);
-        verify(restTemplate, times(1)).getForEntity(urlEsperada, QuantidadeDeLugaresResponseJson.class);
+        verify(restTemplate, times(1)).getForEntity(urlEsperada, Integer.class);
     }
 
     @Test
@@ -74,13 +70,11 @@ class RestauranteGatewayHttpImplTest {
                 dataReserva
         );
 
-        ResponseEntity<QuantidadeDeLugaresResponseJson> responseEntity = new ResponseEntity<>(null, HttpStatus.OK);
-
-        when(restTemplate.getForEntity(urlEsperada, QuantidadeDeLugaresResponseJson.class)).thenReturn(responseEntity);
+        when(restTemplate.getForEntity(urlEsperada, Integer.class)).thenReturn(ResponseEntity.of(Optional.empty()));
 
         // Act & Assert
         assertThrows(ErroAoConsultarRestauranteException.class, () -> restauranteGatewayHttp.quantidadeDeLugares(restauranteId, dataReserva));
-        verify(restTemplate, times(1)).getForEntity(urlEsperada, QuantidadeDeLugaresResponseJson.class);
+        verify(restTemplate, times(1)).getForEntity(urlEsperada, Integer.class);
     }
 
     @Test
@@ -96,10 +90,10 @@ class RestauranteGatewayHttpImplTest {
                 dataReserva
         );
 
-        when(restTemplate.getForEntity(urlEsperada, QuantidadeDeLugaresResponseJson.class)).thenThrow(new RuntimeException("Erro de conexão"));
+        when(restTemplate.getForEntity(urlEsperada, Integer.class)).thenThrow(new RuntimeException("Erro de conexão"));
 
         // Act & Assert
         assertThrows(ErroAoConsultarRestauranteException.class, () -> restauranteGatewayHttp.quantidadeDeLugares(restauranteId, dataReserva));
-        verify(restTemplate, times(1)).getForEntity(urlEsperada, QuantidadeDeLugaresResponseJson.class);
+        verify(restTemplate, times(1)).getForEntity(urlEsperada, Integer.class);
     }
 }
