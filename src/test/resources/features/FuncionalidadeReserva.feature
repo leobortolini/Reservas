@@ -1,5 +1,5 @@
 # language: pt
-Funcionalidade: API - Reservas
+Funcionalidade: API - Reservas e Avaliacoes
 
     Cenário: Criar nova reserva
         Quando criar nova reserva
