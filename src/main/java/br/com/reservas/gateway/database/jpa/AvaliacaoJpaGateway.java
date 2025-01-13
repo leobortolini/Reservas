@@ -30,10 +30,10 @@ public class AvaliacaoJpaGateway implements AvaliacaoGateway {
     }
 
     private AvaliacaoEntity toEntity(Avaliacao avaliacao) {
-        Optional<ReservaEntity> reservaEntity = reservaRepository.findById(avaliacao.getReserva().getReservaId());
+        Optional<ReservaEntity> reservasEntity = reservaRepository.findById(avaliacao.getReserva().getReservaId());
 
-        if (reservaEntity.isPresent()) {
-            return AvaliacaoEntity.builder().reservaEntity(reservaEntity.get()).comentario(avaliacao.getComentario()).satisfacao(avaliacao.getSatisfacao()).build();
+        if (reservasEntity.isPresent()) {
+            return AvaliacaoEntity.builder().reservaEntity(reservasEntity.get()).comentario(avaliacao.getComentario()).satisfacao(avaliacao.getSatisfacao()).build();
         }
 
         throw new ReservaNaoEncontradaException();
