@@ -41,6 +41,7 @@ public class ReservaJpaGateway implements ReservaGateway {
             return reserva;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
+
             throw new ErroAoAcessarRepositorioException();
         }
     }
