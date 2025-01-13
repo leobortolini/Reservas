@@ -73,6 +73,7 @@ public class ReservaJpaGateway implements ReservaGateway {
 
         if (entity.isPresent()) {
             ReservaEntity reservaEntity = entity.get();
+
             return new ReservaDTO(reservaEntity.getId(), reservaEntity.getRestauranteId(), reservaEntity.getQuantidadeLugares(),
                     reservaEntity.getNomeCliente(), reservaEntity.getInicioReserva(), reservaEntity.getStatus());
         }
